@@ -1,0 +1,30 @@
+modules:
+  jira:projectPage:
+    - key: sprint-review-page
+      resource: main
+      resolver:
+        function: resolver
+      render: native
+      title: Sprint Review
+
+  function:
+    - key: resolver
+      handler: index.handler
+
+resources:
+  - key: main
+    path: src/frontend/index.tsx
+
+permissions:
+  scopes:
+    - read:jira-work
+    - read:board-scope:jira-software
+    - read:sprint:jira-software
+    - read:issue-details:jira
+    - read:jql:jira
+    - storage:app
+
+app:
+  runtime:
+    name: nodejs22.x
+  id: ari:cloud:ecosystem::app/41c04794-0b86-497f-960d-4b444baeb916

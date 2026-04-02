@@ -1,0 +1,29 @@
+{
+  "name": "sprint-review-forge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sprint Review Forge application",
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "jest --config jest.config.cjs",
+    "test:watch": "jest --config jest.config.cjs --watch",
+    "lint:forge": "forge lint",
+    "deploy": "forge deploy"
+  },
+  "dependencies": {
+    "@forge/api": "^7.1.2",
+    "@forge/bridge": "^5.15.0",
+    "@forge/kvs": "^1.6.0",
+    "@forge/react": "^11.14.0",
+    "@forge/resolver": "^1.7.1",
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20.19.9",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.9",
+    "typescript": "^5.9.2"
+  }
+}

@@ -1,0 +1,35 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+out-tsc
+
+# Forge
+.forge/
+
+# Test
+coverage
+test-output
+
+# IDE
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.sublime-workspace
+
+# Environment
+.env
+.env.local
+
+# System
+.DS_Store
+Thumbs.db
+
+# Cursor
+.cursor/
+
+# Logs
+npm-debug.log
+yarn-error.log
