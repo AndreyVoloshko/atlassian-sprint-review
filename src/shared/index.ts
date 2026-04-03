@@ -26,6 +26,7 @@ export interface SprintSummaryDto {
 export interface EpicBreakdownDto {
   readonly epicKey: string;
   readonly epicLabel: string;
+  readonly epicColor: string | null;
   readonly plannedSp: number;
   readonly addedSp: number;
   readonly completedSp: number;

@@ -14,7 +14,7 @@ import {
 
 import type { EpicBreakdownDto, ReleaseDto, TicketDto } from '../../shared';
 import { fmt, formatDate } from '../helpers/format';
-import { sidebarBox, sidebarCardBox, sidebarSectionBox } from '../styles';
+import { epicColorDot, sidebarBox, sidebarCardBox, sidebarSectionBox } from '../styles';
 import { StatusBar } from './StatusBar';
 
 // ---------------------------------------------------------------------------
@@ -111,13 +111,16 @@ export function Sidebar({
               return (
                 <Box key={e.epicKey} xcss={sidebarCardBox}>
                   <Stack space="space.050">
-                    <Checkbox
-                      key={`${e.epicKey}-${selectedEpicKeys.has(e.epicKey)}`}
-                      label={e.epicLabel}
-                      value={e.epicKey}
-                      defaultChecked={selectedEpicKeys.has(e.epicKey)}
-                      onChange={() => toggleEpic(e.epicKey)}
-                    />
+                    <Inline alignBlock="center" space="space.050">
+                      <Box xcss={epicColorDot(e.epicColor)} />
+                      <Checkbox
+                        key={`${e.epicKey}-${selectedEpicKeys.has(e.epicKey)}`}
+                        label={e.epicLabel}
+                        value={e.epicKey}
+                        defaultChecked={selectedEpicKeys.has(e.epicKey)}
+                        onChange={() => toggleEpic(e.epicKey)}
+                      />
+                    </Inline>
                     <Inline space="space.050">
                       <Badge>{`${totalTickets} tickets`}</Badge>
                       <Badge appearance="primary">{`${fmt(totalSp)} sp`}</Badge>

@@ -83,3 +83,37 @@ export const sidebarCardBox = xcss({
   padding: 'space.100',
   borderRadius: 'radius.small',
 });
+
+// ---------------------------------------------------------------------------
+// Epic color dot (maps Jira color_N keys to ADS tokens)
+// ---------------------------------------------------------------------------
+
+const JIRA_COLOR_TOKENS: Record<string, string> = {
+  color_1: 'color.background.accent.purple.bolder',
+  color_2: 'color.background.accent.blue.bolder',
+  color_3: 'color.background.accent.teal.bolder',
+  color_4: 'color.background.accent.green.bolder',
+  color_5: 'color.background.accent.green.bolder',
+  color_6: 'color.background.accent.yellow.bolder',
+  color_7: 'color.background.accent.orange.bolder',
+  color_8: 'color.background.accent.red.bolder',
+  color_9: 'color.background.accent.red.bolder',
+  color_10: 'color.background.accent.magenta.bolder',
+  color_11: 'color.background.accent.purple.bolder',
+  color_12: 'color.background.accent.gray.bolder',
+  color_13: 'color.background.accent.green.bolder',
+  color_14: 'color.background.accent.teal.bolder',
+};
+
+const DEFAULT_EPIC_TOKEN = 'color.background.accent.magenta.bolder';
+
+export function epicColorDot(colorKey: string | null) {
+  const token = (colorKey && JIRA_COLOR_TOKENS[colorKey]) ?? DEFAULT_EPIC_TOKEN;
+  return xcss({
+    width: '14px',
+    height: '14px',
+    borderRadius: 'radius.xsmall',
+    backgroundColor: token,
+    flexShrink: '0',
+  } as Parameters<typeof xcss>[0]);
+}

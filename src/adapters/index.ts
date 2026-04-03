@@ -239,6 +239,37 @@ export class JiraIssueRepository implements IIssueRepository {
 }
 
 // ---------------------------------------------------------------------------
+// Epic colors
+// ---------------------------------------------------------------------------
+
+interface JiraEpicResponse {
+  key: string;
+  color?: { key: string };
+}
+
+export async function fetchEpicColors(
+  api: JiraApiClient,
+  epicKeys: string[],
+): Promise<Map<string, string>> {
+  const map = new Map<string, string>();
+  if (epicKeys.length === 0) return map;
+
+  const results = await Promise.all(
+    epicKeys.map(async (key) => {
+      const res = await api.fetch(`/rest/agile/1.0/epic/${key}`);
+      if (!res.ok) return null;
+      const data = (await res.json()) as JiraEpicResponse;
+      return { key, colorKey: data.color?.key ?? null };
+    }),
+  );
+
+  for (const r of results) {
+    if (r?.colorKey) map.set(r.key, r.colorKey);
+  }
+  return map;
+}
+
+// ---------------------------------------------------------------------------
 // Board → project key lookup
 // ---------------------------------------------------------------------------
 

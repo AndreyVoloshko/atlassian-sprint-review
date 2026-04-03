@@ -6,6 +6,7 @@ import { DomainError } from './domain';
 import { ComputeSprintStats, GetSprintList } from './usecases';
 import {
   discoverFieldIds,
+  fetchEpicColors,
   fetchProjectReleases,
   ForgeStorageAdapter,
   getProjectKeyForBoard,
@@ -79,10 +80,16 @@ resolver.define(RESOLVER_KEYS.getSprintStats, async (req) => {
       req.payload as unknown as GetSprintStatsPayload;
     const deps = await createDeps();
     const useCase = new ComputeSprintStats(deps);
-    return {
-      success: true,
-      data: await useCase.execute({ boardId, sprintId, forceRefresh }),
-    };
+    const stats = await useCase.execute({ boardId, sprintId, forceRefresh });
+
+    const epicKeys = stats.epicBreakdowns.map((e) => e.epicKey);
+    const colorMap = await fetchEpicColors(jiraApi, epicKeys);
+    const epicBreakdowns = stats.epicBreakdowns.map((e) => ({
+      ...e,
+      epicColor: colorMap.get(e.epicKey) ?? null,
+    }));
+
+    return { success: true, data: { ...stats, epicBreakdowns } };
   } catch (err) {
     return handleError(err);
   }

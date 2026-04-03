@@ -163,6 +163,7 @@ export class ComputeSprintStats {
       const current = map.get(epicKey) ?? {
         epicKey,
         epicLabel: issue.epicLabel,
+        epicColor: null as string | null,
         plannedSp: 0,
         addedSp: 0,
         completedSp: 0,
